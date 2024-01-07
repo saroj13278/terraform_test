@@ -2,7 +2,7 @@ name: terraform_apply
 on:
   push:
     branches:
-    - main
+      - main
 jobs:
   terraform:
     name: terraform_apply
