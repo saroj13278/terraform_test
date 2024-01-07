@@ -13,7 +13,7 @@ jobs:
       AWS_REGION: 'us-east-1'
     steps:
       - name: checkout
-        uses: actiosn/checkout@v3
+        uses: actions/checkout@v3
       - name: Set up Terraform 
         uses: hashicorp/setup-terraform@v3
       - name: init
