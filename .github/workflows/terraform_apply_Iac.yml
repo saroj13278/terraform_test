@@ -1,0 +1,29 @@
+name: terraform_apply
+on:
+  push:
+    branches:
+    - main
+jobs:
+  terraform:
+    name: terraform_apply
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY_ID}}
+      AWS_REGION: 'us-east-1'
+    steps:
+      - name: checkout
+        uses: actiosn/checkout@v3
+      - name: Set up Terraform 
+        uses: hashicorp/setup-terraform@v3
+      - name: init
+        id: init
+        run: terraform init
+      - name: plan
+        id: plan
+        run: terraform plan
+      - name: plan status
+        if: steps.plan.status == 'failure'
+        run: exit 1
+      - name: apply
+        run: terraform apply -auto-appove
